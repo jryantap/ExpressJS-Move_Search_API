@@ -2,6 +2,7 @@
 var express = require("express");
 var app = express();
 var request = require("request");
+//port for heroku so I can deploy it
 var port = process.env.PORT || 8080;
 app.set("view engine", "ejs");
 
