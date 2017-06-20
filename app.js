@@ -2,15 +2,15 @@
 var express = require("express");
 var app = express();
 var request = require("request");
-//app.set("view engine", "ejs");
+app.set("view engine", "ejs");
 
 app.set('port', (process.env.PORT || 5000));
 
-app.use(express.static(__dirname + '/public'));
+//app.use(express.static(__dirname + '/public'));
 
-//app.get("/", function(req, res){
-//    res.render("search");
-//});
+app.get("/", function(req, res){
+    res.render("search");
+});
 
 //parse JSON from api and store them in a var data 
 app.get("/results", function(req, res){
