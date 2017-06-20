@@ -1,4 +1,4 @@
-A very simple movie data base search using Express.
+A very simple movie database search.
 
 ---
 
