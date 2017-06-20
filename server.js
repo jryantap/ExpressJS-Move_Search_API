@@ -1,23 +1,29 @@
-var express = require('express');
+//initialize frameworks
+var express = require("express");
 var app = express();
-
-// set the port of our application
-// process.env.PORT lets the port be set by Heroku
+var request = require("request");
 var port = process.env.PORT || 8080;
+app.set("view engine", "ejs");
 
-// set the view engine to ejs
-app.set('view engine', 'ejs');
-
-// make express look in the public directory for assets (css/js/img)
-app.use(express.static(__dirname + '/public'));
-
-// set the home page route
-app.get('/', function(req, res) {
-
-    // ejs render automatically looks in the views folder
-    res.render('index');
+app.get("/", function(req, res){
+    res.render("search");
 });
 
+//parse JSON from api and store them in a var data 
+app.get("/results", function(req, res){
+    //get data from the query string from form
+    var query = req.query.search;
+    var url = "http://omdbapi.com/?s=" + query + "&apikey=thewdb";
+    request(url, function(error, response, body){
+        if(!error && response.statusCode == 200){
+            var data = JSON.parse(body)
+            res.render("results", {data: data});
+        }
+    })
+    
+});
+
+//start server for heroku
 app.listen(port, function() {
-    console.log('Our app is running on http://localhost:' + port);
+  console.log('Node app is running on port', + port);
 });
